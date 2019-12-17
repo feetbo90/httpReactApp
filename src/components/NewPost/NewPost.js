@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import './NewPost.css';
+import Axios from '../../axios';
 
 class NewPost extends Component {
     state = {
@@ -8,6 +9,18 @@ class NewPost extends Component {
         content: '',
         author: 'Max'
     }
+
+    // addPostHandler = () => {
+    //     const post = {
+    //         title: this.state.title,
+    //         body: this.state.content,
+    //         userId: 101
+    //     }
+    //     Axios.post('/posts', post)
+    //     .then(response => {
+    //         console.log(response);
+    //     })
+    // }
 
     render () {
         return (
@@ -22,7 +35,7 @@ class NewPost extends Component {
                     <option value="Max">Max</option>
                     <option value="Manu">Manu</option>
                 </select>
-                <button>Add Post</button>
+                <button onClick={() => this.props.addPost(this.state)}>Add Post</button>
             </div>
         );
     }
