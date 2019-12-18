@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 
 import './NewPost.css';
-import Axios from '../../axios';
+import axios from '../../axios';
+import { Redirect } from 'react-router-dom';
 
 class NewPost extends Component {
     state = {
         title: '',
         content: '',
-        author: 'Max'
+        author: 'Max',
+        status: false
     }
 
     // addPostHandler = () => {
@@ -22,7 +24,24 @@ class NewPost extends Component {
     //     })
     // }
 
+    addPost = () => {
+        
+        //console.log(data);
+
+        axios.post('/posts', {title: this.state.title , body: this.state.body, author: this.state.author})
+        .then(response => {
+            this.setState({status: true})
+            console.log(response);
+        })
+    }
+
+
     render () {
+
+        if(this.state.status) {
+            return <Redirect to="/"/>;
+        }
+
         return (
             <div className="NewPost">
                 <h1>Add a Post</h1>
@@ -35,7 +54,7 @@ class NewPost extends Component {
                     <option value="Max">Max</option>
                     <option value="Manu">Manu</option>
                 </select>
-                <button onClick={() => this.props.addPost(this.state)}>Add Post</button>
+                <button onClick={() => this.addPost()}>Add Post</button>
             </div>
         );
     }
